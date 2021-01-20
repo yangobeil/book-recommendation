@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation de livres</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="p-3">
+        <div class="row">
+            <div class="col-6">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="sel1">Select list:</label>
+                        <select class="form-control" id="sel1" name="selected_title">
+                            {% for book in list_books %}
+                            <option>{{ book.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Recommender"/>
+                </form>
+            </div>
+            <div class="col-6">
+                {% if book_selected is defined %}
+                <img src="{{ book_selected.image }}">
+                {% endif %}
+            </div>
+        </div>
+        {% if similar_books is defined %}
+        <div class="row">
+            {% for book in similar_books %}
+            <div class="col-6">
+                <img src="{{ book.image }}">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
