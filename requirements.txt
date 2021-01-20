@@ -1,7 +1,1 @@
-tensorflow-hub
-tensorflow-text
-scikit-learn
-numpy
 flask
-beautifulsoup4
-requests

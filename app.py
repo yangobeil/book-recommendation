@@ -1,33 +1,13 @@
 import pickle
 
 from flask import Flask, request, render_template, jsonify
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 
 app = Flask(__name__)
 
 # load data and extract all the vectors
-with open('books_long_embeddings_single.pkl', 'rb') as f:
+with open('books.pkl', 'rb') as f:
     book_data = pickle.load(f)
-vectors = [item['vector'] for item in book_data]
 isbn_list = [item['ISBN'] for item in book_data]
-X = np.array(vectors)
-
-# calculate similarity based on Euclidean distance
-print('Calculating euclidean distances')
-sim = euclidean_distances(X)
-indices = np.vstack([np.argsort(-arr) for arr in sim])
-
-# calculate similarity based on cosine distance
-print("Calculating cosine distances")
-cos_sim = cosine_similarity(X)
-cos_indices = np.vstack([np.argsort(-arr) for arr in cos_sim])
-
-# find most similar books for each case
-print("Finding similar books")
-for i, book in enumerate(book_data):
-    book['euclidean'] = indices[i][1:21]
-    book['cosine'] = cos_indices[i][1:21]
 
 
 @app.route("/", methods=['GET', 'POST'])
