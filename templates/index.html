@@ -8,8 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div class="p-3 bg-dark text-white">
+<body class="bg-dark">
+    <div class="p-3 text-white">
         <div class="row">
             <div class="col-6">
                 <form method="post">
@@ -42,7 +42,7 @@
         <h2>Voici vos suggestions de lecture:</h2>
         <div class="row">
             {% for book in similar_books %}
-            <div class="col-4 p-3 d-flex justify-content-center">
+            <div class="col-2 p-3 d-flex justify-content-center">
                 <img src="{{ book.image }}">
             </div>
             {% endfor %}

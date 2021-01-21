@@ -8,12 +8,12 @@ app = Flask(__name__)
 # load data and extract all the vectors
 with open('books.pkl', 'rb') as f:
     book_data = pickle.load(f)
+list_books = sorted([book['title'] for book in book_data])
 isbn_list = [item['ISBN'] for item in book_data]
 
 
 @app.route("/", methods=['GET', 'POST'])
 def template_test():
-    list_books = sorted([book['title'] for book in book_data])
     if request.method == 'POST':
         selected_title = request.form.get('selected_title')
         selected_metric = request.form.get('selected_metric')
