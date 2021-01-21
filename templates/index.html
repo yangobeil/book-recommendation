@@ -9,31 +9,40 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="p-3">
+    <div class="p-3 bg-dark text-white">
         <div class="row">
             <div class="col-6">
                 <form method="post">
                     <div class="form-group">
-                        <label for="sel1">Select list:</label>
+                        <label for="sel2">Choisir une métrique:</label>
+                        <select class="form-control" id="sel2" name="selected_metric">
+                            <option>cosine</option>
+                            <option>euclidean</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Choisir un livre:</label>
                         <select class="form-control" id="sel1" name="selected_title">
-                            {% for book in list_books %}
-                            <option>{{ book.title }}</option>
+                            {% for title in list_books %}
+                            <option>{{ title }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Recommender"/>
+                    <input type="submit" class="btn btn-light" value="Recommender"/>
                 </form>
             </div>
             <div class="col-6">
                 {% if book_selected is defined %}
+                <h2>Livre choisi:</h2>
                 <img src="{{ book_selected.image }}">
                 {% endif %}
             </div>
         </div>
         {% if similar_books is defined %}
+        <h2>Voici vos suggestions de lecture:</h2>
         <div class="row">
             {% for book in similar_books %}
-            <div class="col-6">
+            <div class="col-4 p-3 d-flex justify-content-center">
                 <img src="{{ book.image }}">
             </div>
             {% endfor %}

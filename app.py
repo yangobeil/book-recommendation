@@ -13,15 +13,18 @@ isbn_list = [item['ISBN'] for item in book_data]
 
 @app.route("/", methods=['GET', 'POST'])
 def template_test():
+    list_books = sorted([book['title'] for book in book_data])
     if request.method == 'POST':
         selected_title = request.form.get('selected_title')
+        selected_metric = request.form.get('selected_metric')
         selected_book = next(item for item in book_data if item['title'] == selected_title)
-        similar_books = [book_data[i] for i in selected_book['cosine']]
+        similar_books = [book_data[i] for i in selected_book[selected_metric]]
         return render_template('index.html',
-                               list_books=book_data,
+                               list_books=list_books,
                                book_selected=selected_book,
                                similar_books=similar_books[:6])
-    return render_template('index.html', list_books=book_data)
+    else:
+        return render_template('index.html', list_books=list_books)
 
 
 @app.route("/recommendations", methods=['GET'])
@@ -50,4 +53,4 @@ def get_recommendations():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
